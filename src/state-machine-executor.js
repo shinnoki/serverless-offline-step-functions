@@ -192,10 +192,10 @@ class StateMachineExecutor {
 
     buildWaitState(stateInfo, input) {
         let milliseconds;
-        // SecondsPath: specified using a path from the state's input data.
-        if ((stateInfo.Seconds && _.isNaN(+stateInfo.Seconds))) {
+        if (stateInfo.Seconds) {
             milliseconds = +stateInfo.Seconds * 1000
         } else if (stateInfo.SecondsPath && input) {
+            // SecondsPath: specified using a path from the state's input data.
             milliseconds = +jsonPath.query(input, stateInfo.SecondsPath)[0] * 1000;
         } else if (stateInfo.Timestamp) {
             const waitDate = new Date(stateInfo.Timestamp);
